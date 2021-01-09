@@ -35,6 +35,7 @@ class Perceptron:
     def calculate_one(self, inputs):
         result = 0
         for i in range(len(self.weights)):
+            # print(str(self.weights[i]) + ' ' + str(inputs[i]))
             result += self.weights[i] * inputs[i]
 
         result += self.biace
@@ -47,9 +48,6 @@ class Perceptron:
             for case in cases:
                 if not self.__train_one(case['inputs'], case['result']):
                     flag = True
-
-                print(str(case['inputs']) + ' ' +
-                      str(self.get_weights()) + ' ' + str(self.biace))
 
     def get_weights(self):
         return self.weights

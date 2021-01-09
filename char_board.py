@@ -20,6 +20,13 @@ class CharBorad:
         self.is_open = False
         self.window.destroy()
 
+    def __form_output_data(self, raw_inputs):
+        final_inputs = []
+        for row in raw_inputs:
+            final_inputs.extend([1 if item else -1 for item in row])
+
+        return final_inputs
+
     def start(self):
         # initiale board
         window = tk.Tk()
@@ -62,7 +69,7 @@ class CharBorad:
             btn_x = tk.Button(
                 master=window,
                 text="X",
-                command=lambda: self.submit(-1),
+                command=lambda: self.submit(1),
                 width=9,
                 height=3,
                 relief=tk.RAISED,
@@ -72,7 +79,7 @@ class CharBorad:
             btn_o = tk.Button(
                 master=window,
                 text="O",
-                command=lambda: self.submit(1),
+                command=lambda: self.submit(-1),
                 width=9,
                 height=3,
                 relief=tk.RAISED,
@@ -114,14 +121,14 @@ class CharBorad:
 
         label.config(bg='blue' if self.board[i][j] else 'white')
 
-    # x = -1, o = 1
+    # x = 1, o = -1
     def submit(self, t=0):
         self.window.destroy()
 
         if self.is_train:
-            self.on_submit(self.board, t)
+            self.on_submit(self.__form_output_data(self.board), t)
         else:
-            self.on_submit(self.board, None)
+            self.on_submit(self.__form_output_data(self.board), None)
 
         self.__reset_board_()
 
