@@ -53,31 +53,41 @@ class CharBorad:
             master=window,
             text="clear",
             command=self.clear_board,
-            width=9,
             height=3,
             relief=tk.RAISED,
         )
-        btn_clear.grid(row=self.height, column=0)
+        btn_clear.grid(row=self.height, column=0, sticky='we')
 
-        btn_x = tk.Button(
-            master=window,
-            text="X",
-            command=lambda: self.submit(-1),
-            width=9,
-            height=3,
-            relief=tk.RAISED,
-        )
-        btn_x.grid(row=self.height, column=1)
+        if self.is_train:
+            btn_x = tk.Button(
+                master=window,
+                text="X",
+                command=lambda: self.submit(-1),
+                width=9,
+                height=3,
+                relief=tk.RAISED,
+            )
+            btn_x.grid(row=self.height, column=1)
 
-        btn_o = tk.Button(
-            master=window,
-            text="O",
-            command=lambda: self.submit(1),
-            width=9,
-            height=3,
-            relief=tk.RAISED,
-        )
-        btn_o.grid(row=self.height, column=2)
+            btn_o = tk.Button(
+                master=window,
+                text="O",
+                command=lambda: self.submit(1),
+                width=9,
+                height=3,
+                relief=tk.RAISED,
+            )
+            btn_o.grid(row=self.height, column=2)
+        else:
+            btn_recognize = tk.Button(
+                master=window,
+                text="recognize",
+                command=lambda: self.submit(),
+                height=3,
+                relief=tk.RAISED,
+            )
+            btn_recognize.grid(row=self.height, column=1,
+                               columnspan=2, sticky='we')
 
         btn_exit = tk.Button(
             master=window,
@@ -87,7 +97,7 @@ class CharBorad:
             height=3,
             relief=tk.RAISED,
         )
-        btn_exit.grid(row=self.height, column=3)
+        btn_exit.grid(row=self.height, column=4)
 
         self.window.mainloop()
         return
@@ -111,12 +121,12 @@ class CharBorad:
         if self.is_train:
             self.on_submit(self.board, t)
         else:
-            self.on_submit(self.board)
+            self.on_submit(self.board, None)
 
         self.__reset_board_()
 
 
-def all_children(window):
+def all_children(window):   
     _list = window.winfo_children()
 
     for item in _list:
@@ -128,5 +138,5 @@ def all_children(window):
 
 if __name__ == "__main__":
     test = CharBorad(5, 5, lambda inputs, t: print(
-        str(inputs) + ' ' + str(t)), True)
+        str(inputs)), False)
     test.start()

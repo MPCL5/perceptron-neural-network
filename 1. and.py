@@ -3,14 +3,14 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as plticker
 from perceptron import Perceptron
 
-data = [
+data_set = [
     {'inputs': [1, 1], 'result': 1},
     {'inputs': [1, 0], 'result': -1},
     {'inputs': [0, 1], 'result': -1},
     {'inputs': [0, 0], 'result': -1},
 ]
 
-data_set = [item for i in range(10) for item in data]
+# data_set = [item for i in range(10) for item in data]
 
 
 def draw_plot(weights, biace, theta, title='And Perceptron neural network'):
@@ -46,11 +46,11 @@ def draw_plot(weights, biace, theta, title='And Perceptron neural network'):
 
 if __name__ == '__main__':
     neuralPerceptron = Perceptron(2, 0.2, 1)
-    # neuralPerceptron.train_all(data_set)
-    for item in data_set:
+    neuralPerceptron.train_all(data_set)
+    """ for item in data_set:
         neuralPerceptron.train_one(item['inputs'], item['result'])
         print(str(item['inputs']) + ' ' +
-              str(neuralPerceptron.get_weights()) + ' ' + str(neuralPerceptron.biace))
+              str(neuralPerceptron.get_weights()) + ' ' + str(neuralPerceptron.biace)) """
 
     draw_plot(neuralPerceptron.get_weights(), neuralPerceptron.get_biace(),
               neuralPerceptron.theta, f'And Perceptron neural Theta={neuralPerceptron.theta} Aplha={neuralPerceptron.aplpha}')
